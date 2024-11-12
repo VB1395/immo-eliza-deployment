@@ -28,7 +28,7 @@ class HouseDetails(BaseModel):
     heating_type: str
     other_amenities: Optional [int] 
 
-@app.post("/predict")
+@app.post("/")
 def predict(data: HouseDetails):
     try: 
         # Load the trained model model\RandomForest_model.pkl
