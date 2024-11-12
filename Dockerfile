@@ -1,21 +1,20 @@
-# Starts from the python 3.10 official docker image
-FROM python:3.10
+# Start from the official Python 3.10 image
+FROM python:3.10-slim
 
-# Create a folder "app" at the root of the image
-RUN mkdir /app
-
-# Define /app as the working directory
+# Set the working directory to /app inside the container
 WORKDIR /app
 
-# Copy all the files in the current directory in /app
-COPY . /app
+# Copy the requirements.txt into the container
+COPY requirements.txt /app/
 
-# Update pip
-RUN pip install --upgrade pip
+# Install dependencies
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Install dependencies from "requirements.txt"
-RUN pip install -r requirements.txt
+# Copy all the project files into the container (including the api folder and model folder)
+COPY . /app/
 
-# Run the app
-# Set host to 0.0.0.0 to make it run on the container's network
-CMD uvicorn api.app:app --host 0.0.0.0
+# Expose the app on port 8000
+EXPOSE 8000
+
+# Run the FastAPI app using Uvicorn, pointing to the correct location of app.py
+CMD ["uvicorn", "api.app:app", "--host", "0.0.0.0", "--port", "8000"]
