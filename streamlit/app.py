@@ -111,7 +111,7 @@ def main():
         # result = prediction(house_data)
         # st.success(f'The estimated price is: €{result:,.2f}')
 
-        response = requests.post('http://127.0.0.1:8000/', json=house_data)
+        response = requests.post('https://immo-eliza-vma8.onrender.com/', json=house_data)
         
         if response.status_code == 200:
             result = response.json()
