@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import pandas as pd
 import pickle
 from api.predict import Train  
-from typing import Optional, Literal
+from typing import Optional
 
 app = FastAPI()
 

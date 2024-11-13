@@ -11,11 +11,11 @@ with open('./model/RandomForest_model.pkl', 'rb') as model_file:
 with open('./model/encoding.pkl', 'rb') as columns_file:
     train_columns = pickle.load(columns_file)
 
-def prediction(user_data):
+def prediction(house_data):
     model = Train()  
 
     # Create a DataFrame from the user input 
-    df = pd.DataFrame([user_data])  
+    df = pd.DataFrame([house_data])  
 
     # Encoding categorical features 
     df = model.encoding(df)
@@ -57,7 +57,7 @@ def main():
     longitude = st.text_input('Longitude')
     longitude = float(longitude) if longitude else 0.0
 
-    # Convert other numerical fields to float or int where necessary
+    # Converting field into int and float
     construction_year = st.text_input('Construction Year')
     construction_year = int(construction_year) if construction_year else 0
 
@@ -83,9 +83,10 @@ def main():
 
     heating_type = st.selectbox('Type of Heating', ['GAS', 'FUELOIL', 'PELLET', 'ELECTRIC', 'SOLAR', 'WOOD', 'CARBON'])
     other_amenities = st.text_input('Choose other amenities: Add 1 for each amenity selected (Swimming Pool, Furnished, Double Glazing, Open Fire), otherwise enter 0.')
+    other_amenities = int(other_amenities) if other_amenities else 0
 
     if st.button('Predict Price'):
-        # dictionary
+        # dictionary represnts data provided by user and feature that will be sent to the model for prediction.
         house_data = {
             'property_type': property_type,
             'subproperty_type': subproperty_type,
@@ -110,9 +111,10 @@ def main():
     
         # result = prediction(house_data)
         # st.success(f'The estimated price is: €{result:,.2f}')
-
+        #function sends a POST request to the API, which is hosted at the URL and send data in JSON.
         response = requests.post('https://immo-eliza-vma8.onrender.com/', json=house_data)
         
+        #API receives this data, processes it, and returns a response containing the predicted house price
         if response.status_code == 200:
             result = response.json()
             st.write(f"The estimated price is: €{result['price']:,.2f}")
