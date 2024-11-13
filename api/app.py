@@ -9,7 +9,7 @@ app = FastAPI()
 
 # Input data model for predictions
 class HouseDetails(BaseModel):
-    property_type: Literal["House", "Apartment"]
+    property_type: str
     subproperty_type: str
     region: str
     province: str
@@ -31,23 +31,20 @@ class HouseDetails(BaseModel):
 @app.post("/")
 def predict(data: HouseDetails):
     try: 
-        # Load the trained model model\RandomForest_model.pkl
+        # loading train model
         with open('./model/RandomForest_model.pkl', 'rb') as model_file:
             loaded_model = pickle.load(model_file)
 
-        # Load the column names used during training
+        # Loading encoding model
         with open('./model/encoding.pkl', 'rb') as columns_file:
             train_columns = pickle.load(columns_file)
 
         # Preprocess the input data
-        model = Train()  # Create an instance of the Train class for preprocessing
+        model = Train()  
         df = pd.DataFrame([data.model_dump()])  # Convert input data to dictionary
 
         # Encoding categorical features as  per the training data
         df = model.encoding(df)
-        
-        # Impute missing values as done during training
-        df = model.imputing(df)
 
         # Reindex columns to match the training data, adding missing columns with 0s
         df = df.reindex(columns=train_columns, fill_value=0)
@@ -55,13 +52,12 @@ def predict(data: HouseDetails):
         # Predict using the trained model
         prediction = loaded_model.predict(df)
 
-        return {"predicted_price": round(prediction[0], 2)}
+        return {"price": round(prediction[0], 2)}
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error in prediction: {str(e)}")
 
 
-# Main entry point for running the app (for development purposes)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)

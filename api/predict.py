@@ -44,15 +44,12 @@ class Train:
         
         # Ordinal Encoding for 'equipped_kitchen' column
         encoding_kitchen = OrdinalEncoder(categories=[['MISSING', 'NOT_INSTALLED', 'USA_UNINSTALLED', 'INSTALLED',
-                                                       'USA_INSTALLED', 'SEMI_EQUIPPED', 'USA_SEMI_EQUIPPED',
-                                                       'HYPER_EQUIPPED', 'USA_HYPER_EQUIPPED']],
-                                          handle_unknown='use_encoded_value', unknown_value=-1)
+        'USA_INSTALLED', 'SEMI_EQUIPPED', 'USA_SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'USA_HYPER_EQUIPPED']],handle_unknown='use_encoded_value', unknown_value=-1)
         df['equipped_kitchen'] = encoding_kitchen.fit_transform(df[['equipped_kitchen']])
         
         # Ordinal Encoding for 'state_building' column
         encoding_state_of_building = OrdinalEncoder(categories=[['MISSING', 'TO_RESTORE', 'TO_RENOVATE',
-                                                                'TO_BE_DONE_UP', 'GOOD', 'AS_NEW', 'JUST_RENOVATED']],
-                                                   handle_unknown='use_encoded_value', unknown_value=-1)
+        'TO_BE_DONE_UP', 'GOOD', 'AS_NEW', 'JUST_RENOVATED']],handle_unknown='use_encoded_value', unknown_value=-1)
         df['state_building'] = encoding_state_of_building.fit_transform(df[['state_building']])
         
         # Update 'construction_year' to the difference with the reference year (2024)
