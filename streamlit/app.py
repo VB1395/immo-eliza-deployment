@@ -48,16 +48,18 @@ def main():
     province = st.selectbox('Province', ['ANTWERP', 'EAST FLANDERS', 'BRUSSELS', 'WALLOON BRABANT',
     'FLEMISH BRABANT', 'LIÈGE', 'WEST FLANDERS', 'HAINAUT', 'LUXEMBOURG', 'LIMBURG', 'NAMUR'])
     locality = st.text_input('Locality')
-    zip_code = st.text_input('Postal Code')
 
-    # Convert latitude and longitude to float
+    # Converting field into int and float
+    zip_code = st.text_input('Postal Code')
+    zip_code = int(zip_code) if zip_code else 0
+
     latitude = st.text_input('Latitude')
     latitude = float(latitude) if latitude else 0.0
 
     longitude = st.text_input('Longitude')
     longitude = float(longitude) if longitude else 0.0
 
-    # Converting field into int and float
+    
     construction_year = st.text_input('Construction Year')
     construction_year = int(construction_year) if construction_year else 0
 

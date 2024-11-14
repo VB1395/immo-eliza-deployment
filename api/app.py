@@ -7,6 +7,10 @@ from typing import Optional
 
 app = FastAPI()
 
+@app.get("/")
+def status():
+    return {"Status": "Alive"}
+
 # Input data model for predictions
 class HouseDetails(BaseModel):
     property_type: str
@@ -28,7 +32,9 @@ class HouseDetails(BaseModel):
     heating_type: str
     other_amenities: Optional [int] 
 
-@app.post("/")
+
+
+@app.post("/predict")
 def predict(data: HouseDetails):
     try: 
         # loading train model
@@ -39,17 +45,15 @@ def predict(data: HouseDetails):
         with open('./model/encoding.pkl', 'rb') as columns_file:
             train_columns = pickle.load(columns_file)
 
-        # Preprocess the input data
+        # Preprocess and encode input data
         model = Train()  
         df = pd.DataFrame([data.model_dump()])  # Convert input data to dictionary
 
-        # Encoding categorical features as  per the training data
         df = model.encoding(df)
 
         # Reindex columns to match the training data, adding missing columns with 0s
         df = df.reindex(columns=train_columns, fill_value=0)
 
-        # Predict using the trained model
         prediction = loaded_model.predict(df)
 
         return {"price": round(prediction[0], 2)}
