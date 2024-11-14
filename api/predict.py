@@ -22,16 +22,16 @@ class Train:
         
         df.drop(['id', 'nbr_frontages', 'cadastral_income', 'epc', 'surface_land_sqm', 
                  'fl_terrace', 'fl_garden', 'fl_furnished', 'fl_double_glazing', 
-                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone'], axis=1, inplace= True)
+                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone','latitude', 'longitude','locality'], axis=1, inplace= True)
         
         # Drop rows with missing values in crucial columns
-        df = df.dropna(subset=['construction_year', 'latitude', 'longitude', 'primary_energy_consumption_sqm'], axis=0)
+        df = df.dropna(subset=['construction_year', 'primary_energy_consumption_sqm'], axis=0)
         
         return df
     
     def encoding(self, df):
         """Encode categorical columns"""
-        categorical_columns = ['property_type', 'region', 'heating_type', 'province', 'subproperty_type', 'locality']
+        categorical_columns = ['property_type', 'region', 'heating_type', 'province', 'subproperty_type']
         
         # Handle missing values by filling NaNs with a placeholder like 'MISSING'
         df[categorical_columns] = df[categorical_columns].fillna('MISSING')
@@ -72,14 +72,14 @@ class Train:
         
         # Split data into features (X) and target (y)
         X = df.drop(['price'], axis=1)
-        y = df['price']  # Reshaping target for regression
+        y = df['price']  
         
         # Split into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.2)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0, test_size=0.2)
         
         
-        # Initialize and train the RandomForest model
-        model = RandomForestRegressor(n_estimators=100, max_depth=15, min_samples_split=5, min_samples_leaf=2)
+        # Initialize and train the RandomForest model n_estimators=500,max_depth=20, min_samples_split=7, min_samples_leaf=2
+        model = RandomForestRegressor(n_estimators=100, max_depth=20, min_samples_split=5, min_samples_leaf=2)
         model.fit(X_train, y_train)   
         
         print('Trainig Score:',model.score(X_train,y_train))
@@ -103,7 +103,7 @@ class Train:
         with open('model/encoding.pkl', 'wb') as columns_file:
             pickle.dump(X_train.columns, columns_file)
 
-        print("Model file, and encoded columns saved....")
+        print("Model and encoded file saved....")
 
 
 # Main script execution

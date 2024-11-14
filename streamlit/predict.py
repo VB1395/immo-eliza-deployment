@@ -22,16 +22,16 @@ class Train:
         
         df.drop(['id', 'nbr_frontages', 'cadastral_income', 'epc', 'surface_land_sqm', 
                  'fl_terrace', 'fl_garden', 'fl_furnished', 'fl_double_glazing', 
-                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone'], axis=1, inplace= True)
+                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone','latitude', 'longitude','locality'], axis=1, inplace= True)
         
         # Drop rows with missing values in crucial columns
-        df = df.dropna(subset=['construction_year', 'latitude', 'longitude', 'primary_energy_consumption_sqm'], axis=0)
+        df = df.dropna(subset=['construction_year', 'primary_energy_consumption_sqm'], axis=0)
         
         return df
     
     def encoding(self, df):
         """Encode categorical columns"""
-        categorical_columns = ['property_type', 'region', 'heating_type', 'province', 'subproperty_type', 'locality']
+        categorical_columns = ['property_type', 'region', 'heating_type', 'province', 'subproperty_type']
         
         # Handle missing values by filling NaNs with a placeholder like 'MISSING'
         df[categorical_columns] = df[categorical_columns].fillna('MISSING')

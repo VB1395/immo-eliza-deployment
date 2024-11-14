@@ -47,17 +47,17 @@ def main():
     region = st.radio('Region', ['FLANDERS', 'BRUSSELS-CAPITAL', 'WALLONIA'])
     province = st.selectbox('Province', ['ANTWERP', 'EAST FLANDERS', 'BRUSSELS', 'WALLOON BRABANT',
     'FLEMISH BRABANT', 'LIÈGE', 'WEST FLANDERS', 'HAINAUT', 'LUXEMBOURG', 'LIMBURG', 'NAMUR'])
-    locality = st.text_input('Locality')
+    #locality = st.text_input('Locality')
 
     # Converting field into int and float
     zip_code = st.text_input('Postal Code')
     zip_code = int(zip_code) if zip_code else 0
 
-    latitude = st.text_input('Latitude')
-    latitude = float(latitude) if latitude else 0.0
+    # latitude = st.text_input('Latitude')
+    # latitude = float(latitude) if latitude else 0.0
 
-    longitude = st.text_input('Longitude')
-    longitude = float(longitude) if longitude else 0.0
+    # longitude = st.text_input('Longitude')
+    # longitude = float(longitude) if longitude else 0.0
 
     
     construction_year = st.text_input('Construction Year')
@@ -69,7 +69,7 @@ def main():
     nbr_bedrooms = st.slider('Number of Bedrooms', 0, 10)
 
     equipped_kitchen = st.selectbox('Kitchen Type', ['INSTALLED', 'HYPER EQUIPPED', 'SEMI EQUIPPED', 
-        'USA INSTALLED', 'USA HYPER EQUIPPED', 'NOT INSTALLED', 'USA SEMI EQUIPPED', 'USA UNINSTALLED'])
+        'USA INSTALLED', 'USA HYPER EQUIPPED', 'NOT INSTALLED', 'USA SEMI EQUIPPED', 'USA UNINSTALLED',])
     
     terrace_sqm = st.text_input('Terrace Area (sqm)')
     terrace_sqm = float(terrace_sqm) if terrace_sqm else None  # if empty
@@ -94,10 +94,7 @@ def main():
             'subproperty_type': subproperty_type,
             'region': region,
             'province': province,
-            'locality': locality,
             'zip_code': zip_code,
-            'latitude': latitude,
-            'longitude': longitude,
             'construction_year': construction_year,
             'total_area_sqm': total_area_sqm,
             'nbr_bedrooms': nbr_bedrooms,

@@ -17,10 +17,10 @@ class HouseDetails(BaseModel):
     subproperty_type: str
     region: str
     province: str
-    locality: str
+    #locality: str
     zip_code: int
-    latitude: float
-    longitude: float
+    #latitude: float
+    #longitude: float
     construction_year: int
     total_area_sqm: float
     nbr_bedrooms: int

@@ -41,10 +41,7 @@ Use ```predict``` endpoint to get price estimations.
   "subproperty_type": "string",
   "region": "string",
   "province": "string",
-  "locality": "string",
   "zip_code": 0,
-  "latitude": 0,
-  "longitude": 0,
   "construction_year": 0,
   "total_area_sqm": 0,
   "nbr_bedrooms": 0,
@@ -61,7 +58,7 @@ Use ```predict``` endpoint to get price estimations.
 - Response body 
 ```
 {
-  "price": 168614.81
+  "price": 0
 } 
 ```
 ### Streamlit
