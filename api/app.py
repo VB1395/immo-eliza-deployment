@@ -13,14 +13,10 @@ def status():
 
 # Input data model for predictions
 class HouseDetails(BaseModel):
-    property_type: str
     subproperty_type: str
     region: str
     province: str
-    #locality: str
     zip_code: int
-    #latitude: float
-    #longitude: float
     construction_year: int
     total_area_sqm: float
     nbr_bedrooms: int

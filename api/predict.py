@@ -22,7 +22,7 @@ class Train:
         
         df.drop(['id', 'nbr_frontages', 'cadastral_income', 'epc', 'surface_land_sqm', 
                  'fl_terrace', 'fl_garden', 'fl_furnished', 'fl_double_glazing', 
-                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone','latitude', 'longitude','locality'], axis=1, inplace= True)
+                 'fl_open_fire', 'fl_swimming_pool', 'fl_floodzone','latitude', 'longitude','locality','property_type'], axis=1, inplace= True)
         
         # Drop rows with missing values in crucial columns
         df = df.dropna(subset=['construction_year', 'primary_energy_consumption_sqm'], axis=0)
@@ -31,7 +31,7 @@ class Train:
     
     def encoding(self, df):
         """Encode categorical columns"""
-        categorical_columns = ['property_type', 'region', 'heating_type', 'province', 'subproperty_type']
+        categorical_columns = [ 'region', 'heating_type', 'province', 'subproperty_type']
         
         # Handle missing values by filling NaNs with a placeholder like 'MISSING'
         df[categorical_columns] = df[categorical_columns].fillna('MISSING')
@@ -75,11 +75,16 @@ class Train:
         y = df['price']  
         
         # Split into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0, test_size=0.2)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=41, test_size=0.2)
         
         
         # Initialize and train the RandomForest model n_estimators=500,max_depth=20, min_samples_split=7, min_samples_leaf=2
-        model = RandomForestRegressor(n_estimators=100, max_depth=20, min_samples_split=5, min_samples_leaf=2)
+        model = RandomForestRegressor( n_estimators=100,  # Number of trees in the forest
+            max_depth=12,  # Maximum depth of each tree
+            min_samples_split=8,  # Minimum samples required to split a node
+            min_samples_leaf=5,  # Minimum samples required at a leaf node
+            n_jobs=-1  # Use all available CPU cores for parallel processing)
+        )
         model.fit(X_train, y_train)   
         
         print('Trainig Score:',model.score(X_train,y_train))

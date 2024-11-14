@@ -30,34 +30,26 @@ def main():
     st.markdown(
     """
     <h1 style='text-align: center; color: #4CAF50;'>🏡 Price My Home</h1>
-    <h4 style='text-align: center; color: #333;'>Unlock the True Value of Your Property with Our House Price Predictor for Belgian Homes</h3>
+    <h4 style='text-align: center; color: #333;'>Unlock the True Value of Your Property </h4>
     """, 
     unsafe_allow_html=True)
     # unsafe_allow_html=True flag use HTML for styling in the Streamlit app
     st.info("Discover the estimated market price of your property based on key features and real-time data.")
 
 
-    property_type = st.radio('Type of property', ['HOUSE', 'APARTMENT'])
-    subproperty_type = st.selectbox('Subtype of property', ['HOUSE', 'APARTMENT', 'DUPLEX', 'VILLA', 
+    subproperty_type = st.selectbox('Type of property', ['HOUSE', 'APARTMENT', 'DUPLEX', 'VILLA', 
                 'EXCEPTIONAL PROPERTY', 'FLAT STUDIO', 'GROUND_FLOOR', 'PENTHOUSE', 'FARMHOUSE',
                 'APARTMENT_BLOCK', 'COUNTRY COTTAGE', 'TOWN HOUSE', 'SERVICE_FLAT', 'MANSION',
                 'MIXED USE BUILDING', 'MANOR HOUSE', 'LOFT', 'BUNGALOW', 'KOT', 'CASTLE',
                 'CHALET', 'OTHER PROPERTY', 'TRIPLEX'])
 
-    region = st.radio('Region', ['FLANDERS', 'BRUSSELS-CAPITAL', 'WALLONIA'])
+    region = st.radio('Region', ['FLANDERS', 'BRUSSELS', 'WALLONIA'])
     province = st.selectbox('Province', ['ANTWERP', 'EAST FLANDERS', 'BRUSSELS', 'WALLOON BRABANT',
     'FLEMISH BRABANT', 'LIÈGE', 'WEST FLANDERS', 'HAINAUT', 'LUXEMBOURG', 'LIMBURG', 'NAMUR'])
-    #locality = st.text_input('Locality')
 
     # Converting field into int and float
     zip_code = st.text_input('Postal Code')
     zip_code = int(zip_code) if zip_code else 0
-
-    # latitude = st.text_input('Latitude')
-    # latitude = float(latitude) if latitude else 0.0
-
-    # longitude = st.text_input('Longitude')
-    # longitude = float(longitude) if longitude else 0.0
 
     
     construction_year = st.text_input('Construction Year')
@@ -90,7 +82,6 @@ def main():
     if st.button('Predict Price'):
         # dictionary represnts data provided by user and feature that will be sent to the model for prediction.
         house_data = {
-            'property_type': property_type,
             'subproperty_type': subproperty_type,
             'region': region,
             'province': province,
@@ -107,9 +98,6 @@ def main():
             'other_amenities': other_amenities
         }
 
-    
-        # result = prediction(house_data)
-        # st.success(f'The estimated price is: €{result:,.2f}')
         #function sends a POST request to the API, which is hosted at the URL and send data in JSON.
         response = requests.post('https://immo-eliza-vma8.onrender.com/predict', json=house_data)
         
