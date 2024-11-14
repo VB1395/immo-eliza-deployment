@@ -73,16 +73,16 @@ To use streamlit application follow this website: https://immo-eliza-prediction.
 ### Installation
 
 ```
-# Clone the repository:
+# Clone the repository
 git clone 
 
-# Install dependencies:
+# Install dependencies
 pip install -r requirements.txt
 
-# Run the FastAPI server locally:
+# Run the FastAPI server locally
 uvicorn api.app:app --reload
 
-# Launch the Streamlit app locally:
+# Launch the Streamlit app locally
 streamlit run streamlit/app.py
 
 ```
