@@ -114,7 +114,7 @@ def main():
         # result = prediction(house_data)
         # st.success(f'The estimated price is: €{result:,.2f}')
         #function sends a POST request to the API, which is hosted at the URL and send data in JSON.
-        response = requests.post('https://immo-eliza-vma8.onrender.com/', json=house_data)
+        response = requests.post('https://immo-eliza-vma8.onrender.com/predict', json=house_data)
         
         #API receives this data, processes it, and returns a response containing the predicted house price
         if response.status_code == 200:
