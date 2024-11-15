@@ -2,24 +2,24 @@
 
 ## 🏢 Description
 
-Welcome to the immo-eliza-deployment repository where we have deployed a machine learning model that predicts real estate prices through an API endpoint. This solution consists of a FastAPI backend service deployed on Render and a frontend web application using Streamlit.
+Welcome to the immo-eliza-deployment repository where I have deployed a machine learning model that predicts real estate prices through an API endpoint. This solution consists of a FastAPI backend service deployed on Render and a frontend web application using Streamlit. 
+![Architecture Diagram](architecture.png)
+
 
 ## 📦 Repo structure
 ```.
 ├── api/
 │ |── app.py
-| ├── appCstBoost.py
 | ├── predict.py
 ├── data/
 │ ├── houses.csv
 ├── model/
-│ |── CatBoost.pkl
 | ├── RandomForest_model.pkl
 | ├── encoding.pkl
-├── stremlit/
+├── streamlit/
 │ |── app.py
-| ├── predict.py
 ├── .gitignore
+├── architecture.png
 ├── Dockerfile
 ├── predict.py
 ├── README.md
@@ -37,7 +37,6 @@ Use ```predict``` endpoint to get price estimations.
 
 ```
 {
-  "property_type": "string",
   "subproperty_type": "string",
   "region": "string",
   "province": "string",
